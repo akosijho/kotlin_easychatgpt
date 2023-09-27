@@ -1,5 +1,7 @@
 package easy.chat.gpt
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -20,6 +22,7 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private val client = OkHttpClient()
+
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,8 +32,13 @@ class MainActivity : AppCompatActivity() {
 
         btnSubmit.setOnClickListener {
             val question = etQuestion.text.toString()
-            Toast.makeText(this, question, Toast.LENGTH_SHORT).show()
-            getResponse(question) { response ->
+            val ai: ApplicationInfo = applicationContext.packageManager
+                .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+            val value = ai.metaData["OPENAI_KEY"]
+
+            val key = value.toString()
+            Toast.makeText(this, key, Toast.LENGTH_SHORT).show()
+            getResponse(question, key) { response ->
                 runOnUiThread {
                     txtResult.text = response
                 }
@@ -39,8 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getResponse(question: String, callback: (String) -> Unit) {
-        val apiKey = "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"
+    private fun getResponse(question: String, key: String, callback: (String) -> Unit) {
         val url = "https://api.openai.com/v1/chat/completions"
         val requestBody = """
     {
@@ -57,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         val request = Request.Builder()
             .url(url)
             .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", "Bearer $apiKey")
+            .addHeader("Authorization", "Bearer $key")
             .post(requestBody.toRequestBody("application/json".toMediaTypeOrNull()))
             .build()
 
