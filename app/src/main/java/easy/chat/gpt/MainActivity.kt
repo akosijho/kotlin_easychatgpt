@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getResponse(question: String, callback: (String) -> Unit) {
-        val apiKey = "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"
+        val apiKey = "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"
         val url = "https://api.openai.com/v1/chat/completions"
         val requestBody = """
     {
