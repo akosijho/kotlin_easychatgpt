@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
 
             val key = value.toString()
             Toaster.showCustomToast(this)
-//            getResponse(question, key) { response ->
-//                runOnUiThread {
-//                    txtResult.text = response
-//                }
-//
-//            }
+            getResponse(question, key) { response ->
+                runOnUiThread {
+                    txtResult.text = response
+                }
+
+            }
         }
     }
 
