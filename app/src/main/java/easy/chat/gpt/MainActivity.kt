@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import easy.chat.gpt.R
+import easy.chat.gpt.utilities.Toaster
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -37,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             val value = ai.metaData["OPENAI_KEY"]
 
             val key = value.toString()
-            Toast.makeText(this, key, Toast.LENGTH_SHORT).show()
-            getResponse(question, key) { response ->
-                runOnUiThread {
-                    txtResult.text = response
-                }
-
-            }
+            Toaster.showCustomToast(this)
+//            getResponse(question, key) { response ->
+//                runOnUiThread {
+//                    txtResult.text = response
+//                }
+//
+//            }
         }
     }
 
