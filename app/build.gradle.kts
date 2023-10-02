@@ -9,7 +9,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "easy.chat.gpt"
+        applicationId = "easy.chat.gpt.dev"
         minSdk = 28
         targetSdk = 33
         versionCode = 1
